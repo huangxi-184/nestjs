@@ -20,7 +20,6 @@ export class UserService {
   @InjectRepository(User)
   private userRepository: Repository<User>;
 
-
   async register(user: RegisterDto) {
     const foundUser = await this.userRepository.findOneBy({
       username: user.username

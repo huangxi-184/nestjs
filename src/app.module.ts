@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { User } from './user/entities/user.entity';
 import { UserModule } from './user/user.module';
 import { JwtModule } from '@nestjs/jwt'
+import { ArchitectureModule } from './architecture/architecture.module';
 
 @Module({
   imports: [UserModule,
@@ -14,7 +15,7 @@ import { JwtModule } from '@nestjs/jwt'
       port: 20020,
       username: "root",
       password: "Huwenting520.520",
-      database: "hsql",
+      database: "demo",
       synchronize: true,
       logging: true,
       entities: [User],
@@ -28,7 +29,8 @@ import { JwtModule } from '@nestjs/jwt'
       global: true,
       secret: 'huangxi',
       signOptions: { expiresIn: '1h' }
-    })
+    }),
+    ArchitectureModule
   ],
   controllers: [AppController],
   providers: [AppService],

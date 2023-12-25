@@ -5,7 +5,6 @@ import { AppService } from './app.service';
 import { User } from './user/entities/user.entity';
 import { UserModule } from './user/user.module';
 import { JwtModule } from '@nestjs/jwt'
-import { ArchitectureModule } from './architecture/architecture.module';
 
 @Module({
   imports: [UserModule,
@@ -29,8 +28,7 @@ import { ArchitectureModule } from './architecture/architecture.module';
       global: true,
       secret: 'huangxi',
       signOptions: { expiresIn: '1h' }
-    }),
-    ArchitectureModule
+    })
   ],
   controllers: [AppController],
   providers: [AppService],

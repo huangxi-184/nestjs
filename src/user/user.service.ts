@@ -58,6 +58,7 @@ export class UserService {
   }
 
   async getUserList(user: UserListDto) {
+
     const [users, usersCount] = await this.userRepository.findAndCount({
       skip: user.pageSize * (user.pageNumber - 1),
       take: user.pageSize,

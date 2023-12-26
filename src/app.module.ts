@@ -15,7 +15,7 @@ import { createClient } from 'redis';
       port: 20020,
       username: "root",
       password: "Huwenting520.520",
-      database: "hsql",
+      database: "demo",
       synchronize: true,
       logging: true,
       entities: [User],

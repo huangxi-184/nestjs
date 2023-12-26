@@ -4,7 +4,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { User } from './user/entities/user.entity';
 import { UserModule } from './user/user.module';
-import { JwtModule } from '@nestjs/jwt'
+import { JwtModule } from '@nestjs/jwt';
+import { createClient } from 'redis';
 
 @Module({
   imports: [UserModule,
@@ -31,6 +32,21 @@ import { JwtModule } from '@nestjs/jwt'
     })
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    // {
+    //   provide: 'REDIS_CLIENT',
+    //   async useFactory() {
+    //     const client = createClient({
+    //       socket: {
+    //         host: 'localhost',
+    //         port: 6379
+    //       }
+    //     });
+    //     await client.connect();
+    //     return client;
+    //   }
+    // }
+  ],
 })
 export class AppModule { }

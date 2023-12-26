@@ -8,7 +8,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { createClient } from 'redis';
 
 @Module({
-  imports: [UserModule,
+  imports: [
+    UserModule,
     TypeOrmModule.forRoot({
       type: "mysql",
       host: "sh-cynosdbmysql-grp-rrgrxyr4.sql.tencentcdb.com",
@@ -28,12 +29,13 @@ import { createClient } from 'redis';
     JwtModule.register({
       global: true,
       secret: 'huangxi',
-      signOptions: { expiresIn: '1h' }
+      signOptions: { expiresIn: '1d' }
     })
   ],
   controllers: [AppController],
   providers: [
     AppService,
+    // redis 配置
     // {
     //   provide: 'REDIS_CLIENT',
     //   async useFactory() {

@@ -6,6 +6,7 @@ import { Repository, Like } from 'typeorm';
 import { UserListDto, AddUserDto } from "./dto/userList.dto";
 import { User } from './entities/user.entity';
 import * as crypto from 'crypto';
+import { Request } from 'express';
 
 function md5(str) {
   const hash = crypto.createHash('md5');
@@ -73,7 +74,7 @@ export class UserService {
     return {
       code: 200,
       msg: '查询成功',
-      flag: true,
+      success: true,
       data: {
         list: users,
         total: usersCount
@@ -81,26 +82,30 @@ export class UserService {
     }
   }
 
-  async addUser(user: AddUserDto) {
+  async addUser(user: AddUserDto, req: Request) {
     const oneUser = new User();
     oneUser.username = user.account;
     oneUser.password = md5(user.password);
     oneUser.nickname = user.nickname;
     oneUser.role = user.role;
 
+    const jwtUserInfo = req as any
+    oneUser.createId = jwtUserInfo.id;
+    oneUser.updateId = jwtUserInfo.id;
+
     try {
       await this.userRepository.save(oneUser);
       return {
         code: 200,
         msg: '添加成功',
-        flag: true,
+        success: true,
         data: null
       };
     } catch (e) {
       return {
         code: 500,
         msg: '添加失败',
-        flag: false,
+        success: false,
         data: null
       };;
     }

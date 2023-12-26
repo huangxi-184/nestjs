@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Inject, ValidationPipe, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Inject, ValidationPipe, UseGuards, Req } from '@nestjs/common';
 import { UserService } from './user.service';
 import { LoginDto } from "./dto/login.dto";
 import { RegisterDto } from "./dto/register.dto";
 import { UserListDto, AddUserDto } from "./dto/userList.dto";
 import { JwtService } from '@nestjs/jwt';
 import { LoginGuard } from "../login.guard";
+import { Request } from 'express';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) { }
@@ -37,13 +38,14 @@ export class UserController {
   }
 
   @Post('list')
-  // @UseGuards(LoginGuard)
+  @UseGuards(LoginGuard)
   async getUserList(@Body(ValidationPipe) user: UserListDto) {
     return await this.userService.getUserList(user);
   }
 
   @Post('addUser')
-  async addUser(@Body(ValidationPipe) user: AddUserDto) {
-    return await this.userService.addUser(user);
+  @UseGuards(LoginGuard)
+  async addUser(@Body(ValidationPipe) user: AddUserDto, @Req() req: Request) {
+    return await this.userService.addUser(user, req.user);
   }
 }

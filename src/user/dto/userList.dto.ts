@@ -26,4 +26,10 @@ export class AddUserDto {
 
     @IsNotEmpty()
     role: number
+
+    @IsNotEmpty()
+    createId: number
+
+    @IsNotEmpty()
+    updateId: number
 }

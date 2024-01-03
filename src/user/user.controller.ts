@@ -6,6 +6,9 @@ import { UserListDto, AddUserDto } from "./dto/userList.dto";
 import { JwtService } from '@nestjs/jwt';
 import { LoginGuard } from "../login.guard";
 import { Request } from 'express';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+
+
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) { }
@@ -13,6 +16,7 @@ export class UserController {
   @Inject(JwtService)
   private readonly jwtService: JwtService;
 
+  @ApiTags('user')
   @Post('login')
   async login(@Body(ValidationPipe) user: LoginDto) {
     const foundUser = await this.userService.login(user);
@@ -32,11 +36,14 @@ export class UserController {
     }
   }
 
+  @ApiTags('user')
   @Post('register')
   async register(@Body(ValidationPipe) user: RegisterDto) {
     return await this.userService.register(user);
   }
 
+  @ApiTags('user')
+  @ApiBearerAuth('bearer')
   @Post('list')
   @UseGuards(LoginGuard)
   async getUserList(@Body(ValidationPipe) user: UserListDto) {

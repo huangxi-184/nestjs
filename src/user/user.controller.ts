@@ -43,9 +43,9 @@ export class UserController {
     return await this.userService.getUserList(user);
   }
 
-  @Post('addUser')
-  @UseGuards(LoginGuard)
-  async addUser(@Body(ValidationPipe) user: AddUserDto, @Req() req: Request) {
-    return await this.userService.addUser(user, req.user);
-  }
+  // @Post('addUser')
+  // @UseGuards(LoginGuard)
+  // async addUser(@Body(ValidationPipe) user: AddUserDto, @Req() req: Request) {
+  //   return await this.userService.addUser(user, req.user);
+  // }
 }

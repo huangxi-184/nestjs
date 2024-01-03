@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 import { User } from './user/entities/user.entity';
 import { UserModule } from './user/user.module';
 import { JwtModule } from '@nestjs/jwt';
-import { createClient } from 'redis';
+// import { createClient } from 'redis';
 
 @Module({
   imports: [

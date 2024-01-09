@@ -4,7 +4,7 @@ import { LoginDto } from "./dto/login.dto";
 import { RegisterDto } from "./dto/register.dto";
 import { UserListDto, AddUserDto } from "./dto/userList.dto";
 import { JwtService } from '@nestjs/jwt';
-import { LoginGuard } from "../login.guard";
+import { LoginGuard } from "../guard/login.guard";
 import { Request } from 'express';
 @Controller('user')
 export class UserController {

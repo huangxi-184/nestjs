@@ -4,9 +4,11 @@ import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Like } from 'typeorm';
 import { UserListDto, AddUserDto } from "./dto/userList.dto";
+import { IdCardInfoDto } from "./dto/ocr.dto"
 import { User } from './entities/user.entity';
 import * as crypto from 'crypto';
 import { Request } from 'express';
+import Client from '../ocr/ocrClient'
 
 function md5(str) {
   const hash = crypto.createHash('md5');
@@ -108,6 +110,26 @@ export class UserService {
         success: false,
         data: null
       };;
+    }
+  }
+
+  async getIdCardInfo(idCard: IdCardInfoDto) {
+    let Url = idCard.Url;
+    try {
+      let result = await Client.main(Url)
+      return {
+        state: true,
+        data: result,
+        message: "身份证OCR解析成功!",
+      }
+
+    } catch (err) {
+      // 发生错误时处理
+      return {
+        state: false,
+        data: null,
+        message: err.message,
+      };
     }
   }
 }
